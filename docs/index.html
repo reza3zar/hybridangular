@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Untitled1</title>
+  <base href="/angularjs-angular9-hybrid-app/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<link rel="stylesheet" href="styles.6cb061d4d269276b945c.css"></head>
+<body >
+
+<!-- <my-app>loading</my-app> -->
+  <script >
+      let app = angular.module('demo', ["ngRoute", "test"]);
+      app.config(function($routeProvider) {
+          $routeProvider
+          .when("/", { 
+              template : '<h1>A quick demo which shows how to run a hybrid AngularJs/Angular9 app and how to interact between components of the two frameworks.</h1>'
+          })
+          .when("/other", {
+              controller : "otherPageCtrl",
+              template : 
+                '<div style="background: lightgrey">' +
+                '<h3>Another angular js page</h3>' + 
+
+                '<///////Angular 9 logic downgraded as an AngularJs directive>' +
+
+                '<div><test-component name="test" (test-output-event)="onTestOutputEvent($event)" [test-input]="jsMsg "></test-component></div>' + 
+
+                '<///////////////>' + 
+
+                '<br>' +
+                '<div ng-if="angularMsg" style="padding: 10px; border: 2px solid red">{{angularMsg}}</div>' +
+                '<br>' +
+                '<div>'
+          });
+      });
+
+      app.controller("otherPageCtrl", function ($scope) {
+        $scope.jsMsg = 'This string was written in AngularJs and sent as an @Input to in order to be showed from this Angular9 alert';
+        $scope.onTestOutputEvent = function(ev) {
+          $scope.angularMsg = ev;
+        }
+});
+  </script>
+<p><a href="#/!">Main</a></p>
+<p><a href="#!other">Other</a></p>
+<br>
+<div ng-view></div>
+
+<script src="runtime.7d7e9038a1cdbceb3d53.js" defer></script><script src="polyfills-es5.00b398f5aa058ef68f71.js" nomodule defer></script><script src="polyfills.0204ab0940d14b091d98.js" defer></script><script src="main.b32de5664fc68bf675f8.js" defer></script></body>
+</html>
